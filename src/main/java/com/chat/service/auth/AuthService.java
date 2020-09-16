@@ -1,6 +1,8 @@
 package com.chat.service.auth;
 
+import com.chat.dto.AuthDto;
 import com.chat.dto.UserDto;
+import com.chat.model.User;
 import com.chat.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,15 +23,15 @@ public abstract class AuthService implements AuthServiceI {
 
     /**
      * check is user created
-     * @param authDto-object which contains login and password
+     * @param login
      * @return true if user created , false if user didnt created
      */
 
     @Override
-    public boolean checkIsCreated(UserDto authDto) {
+    public boolean checkIsCreated(String login) {
 
         // get user by login and check if user equals null - return false , else return true
-        if(userService.findByLogin(authDto.getLogin())==null) {
+        if(userService.findByLogin(login)==null) {
             logger.info("user didnt created");
             return false;
         }
@@ -37,6 +39,13 @@ public abstract class AuthService implements AuthServiceI {
             logger.info("user created");
             return true;
         }
+    }
+
+    public boolean checkUser(AuthDto authDto) {
+        User user = userService.findByLogin(authDto.getLogin());
+        if(user.getPassword().equals(authDto.getPassword()))
+           return true;
+        return false;
     }
 
 }

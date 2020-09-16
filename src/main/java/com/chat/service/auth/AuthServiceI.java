@@ -4,6 +4,6 @@ import com.chat.dto.UserDto;
 
 public interface AuthServiceI {
 
-    boolean checkIsCreated(UserDto userDto);
+    boolean checkIsCreated(String login);
 
 }

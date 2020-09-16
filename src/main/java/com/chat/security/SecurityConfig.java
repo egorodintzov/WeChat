@@ -35,19 +35,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
-            .antMatchers("/","/chat","/static/**","/message/**","/checkCreated","/authenticate","/registration","/login","/chats","/upload").permitAll()
+            .antMatchers("/","/chat","/static/**","/message/**","/checkCreated","/checkUser","/authenticate","/registration","/login","/chats").permitAll()
             .anyRequest().authenticated()
             .and()
             .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
             .exceptionHandling().authenticationEntryPoint(authEntryPoint);
     }
 
-
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

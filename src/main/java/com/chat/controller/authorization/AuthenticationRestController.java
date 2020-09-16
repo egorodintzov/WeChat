@@ -31,10 +31,10 @@ public class AuthenticationRestController {
      private UserService userService;
 
      @PostMapping("/authenticate")
-     public TokenDto authenticate(@RequestBody UserDto userDto) {
-         if(userDto!=null) {
+     public TokenDto authenticate(@RequestBody AuthDto authDto) {
+         if(authDto!=null && authService.checkUser(authDto) && authService.checkIsCreated(authDto.getLogin())) {
               logger.info("true");
-              return new TokenDto(provider.generateToken(userDto.getLogin()));
+              return new TokenDto(provider.generateToken(authDto.getLogin()));
          }
          return null;
      }
@@ -51,9 +51,12 @@ public class AuthenticationRestController {
      }
 
      @PostMapping("/checkCreated")
-     public boolean checkIsCreated(@RequestBody UserDto authDto) {
-          return authService.checkIsCreated(authDto);
+     public boolean checkIsCreated(@RequestBody UserDto userDto) {
+          return authService.checkIsCreated(userDto.getLogin());
      }
 
-
+     @PostMapping("/checkUser")
+     public boolean checkUser(@RequestBody AuthDto authDto) {
+          return authService.checkUser(authDto);
+     }
 }
