@@ -49,7 +49,7 @@ public abstract class AuthService implements AuthServiceI {
 
     public boolean checkUser(AuthDto authDto) {
         User user = userService.findByLogin(authDto.getLogin());
-        if(user.getPassword().equals(authDto.getPassword()))
+        if(user!=null && user.getPassword().equals(authDto.getPassword()))
            return true;
         return false;
     }
