@@ -41,6 +41,12 @@ public abstract class AuthService implements AuthServiceI {
         }
     }
 
+    /**
+     * check is password correct
+     * @param authDto
+     * @return
+     */
+
     public boolean checkUser(AuthDto authDto) {
         User user = userService.findByLogin(authDto.getLogin());
         if(user.getPassword().equals(authDto.getPassword()))
