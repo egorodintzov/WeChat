@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <input type="file" name="file" id="file"><br/>
+    <input type="submit" value="Upload" onclick="print()">
+
+<script type="text/javascript">
+    const input = document.getElementById('file');
+    input.onchange = function(event) {
+        let fileList = input.files;
+        console.log(fileList);
+    }
+</script>
+
+</body>
+</html>

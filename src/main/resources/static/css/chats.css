@@ -1,0 +1,60 @@
+body {
+    display: none;
+    background:#e3e1e1;
+}
+
+.profile {
+    display: flex;
+    margin: 100px auto 0;
+}
+
+.content {
+    position: relative;
+    margin:0 auto;
+    width: 370px;
+    height: 520px;
+    border-radius: 10px;
+    background: white;
+    margin-top: 200px;
+}
+
+
+
+#chats {
+	display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+}
+
+
+
+.title {
+    display: flex;
+    margin-top: 10px;
+	margin-left:10px;	
+}
+
+.title button {
+    display: none;
+}
+
+.title strong {
+	font-family: tahoma, sans-serif;
+	font-size: 20px;
+}
+
+.search {
+    margin-top: 10px;
+}
+
+.search input {
+	width: 357px;
+	height: 35px;
+	outline:0 none !important;
+    padding-left:10px;
+    border: 0.1px solid #d6d6d6;
+
+	box-shadow:4px 4px 13px 0px rgba(134,139,141,0.78)inset;
+    -webkit-box-shadow:4px 4px 13px 0px rgba(134,139,141,0.78)inset;
+    -moz-box-shadow:4px 4px 13px 0px rgba(134,139,141,0.78)inset;
+}

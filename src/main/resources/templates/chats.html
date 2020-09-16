@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/chats.css">
+</head>
+<body>
+
+<div class="profile">
+    <img src="../../../../front-end/test/src/img/profile.png" width="50" height="50" onclick="redirectProfile()" id="photo">
+    <p onclick="redirectProfile()">Egor Odintsov</p>
+</div>
+
+<div class="content">	 
+
+<div class="title">
+    <button><</button>
+	<strong id="title">Ваши беседы</strong>
+</div>
+
+<div class="search">
+    <input placeholder="Поиск" id="search" onclick="hideChats()" onchange="getUsers()">
+</div>
+
+<div id="chats">
+
+
+</div>
+
+
+<div id="users">
+
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="../static/js/chats.js"></script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+body {
+    background:#e3e1e1;
+}
+
+
+.content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 250px;
+    margin-left:40%;
+    width: 350px;
+    height: 350px;
+    border-radius: 10px;
+    background: white;
+}
+
+#login,#password {
+    width: 250px;
+    height: 40px;
+    padding-left: 10px;
+
+    box-shadow:4px 4px 13px 0px rgba(134,139,141,0.78)inset;
+    -webkit-box-shadow:4px 4px 13px 0px rgba(134,139,141,0.78)inset;
+    -moz-box-shadow:4px 4px 13px 0px rgba(134,139,141,0.78)inset;
+
+    border-radius:10px;
+    outline:0 none !important;
+    border:none;
+}
+
+.password {
+    display: flex;
+}
+
+.login {
+    display: flex;
+}
+
+.error {
+    display:flex;
+    justify-content: center;
+    margin-left: 570px;
+    margin-top: -245px;
+}
+
+@keyframes show {
+    0% {
+        opacity: 0.00001;
+    }
+    100% {
+        opacity: 0.6;
+    }
+}
+
+@keyframes hide {
+    0% {
+        opacity: 0.6;
+    }
+    100% {
+        opacity: 0.00001;
+    }
+}
+
+#error {
+    opacity: 0.00001;
+    color:white;
+    white-space: nowrap;
+    font-family: tahoma, sans-serif;
+    font-size: 14px;
+    width: 230px;
+    height: 30px;
+    background-color: red;
+    padding-top: 10px;
+    padding-left: 20px;
+}
+
+
+
+#visibility {
+    outline:0 none !important;
+    width: 25px;
+    height: 25px;
+    border: none;
+    margin-top: 9px;
+    margin-left: -32px;
+    display: flex;
+    justify-content: center;
+}
+
+#visibility img {
+    margin-top: 1px;
+}
+
+
+.login,.password {
+    margin-bottom: 20px;
+}
+
+.login,.password,.sign_in,.create_account {
+    padding-left: 45px;
+}
+
+.title {
+    padding-left: 37%;
+    margin-bottom: 35px;
+}
+
+.title strong {
+    color:#a6aded;
+    font-size: 25px;
+    font-family: tahoma, sans-serif;
+}
+
+.create_account button {
+    margin-top: 20px;
+    width: 260px;
+    height: 40px;
+    background: #9bf2b8;
+    color: white;
+
+    box-shadow:4px 4px 13px 0px rgba(134,139,141,0.78);
+    -webkit-box-shadow:4px 4px 13px 0px rgba(134,139,141,0.78);
+    -moz-box-shadow:4px 4px 13px 0px rgba(134,139,141,0.78);
+
+    border-radius:10px;
+    outline:0 none !important;
+    border:none;
+    font-size: 17px;
+    font-family: tahoma, sans-serif;
+}

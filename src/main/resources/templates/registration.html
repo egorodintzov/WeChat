@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <link type="text/css" href="../static/css/registration.css" rel="stylesheet">
+</head>
+<body>
+<div class="content">
+       <div class="title">
+          <strong>WeChat</strong>
+       </div>
+
+       <div class="login">
+          <input id="login" placeholder="Login">
+       </div>
+
+       <div class="password">
+           <input id="password" placeholder="Password" type="password">
+           <button id="visibility" onclick="changeVisibility()"><img id="eye-visibility" src="../../../../front-end/test/src/img/visible.png" width="25" height="25"></button>
+       </div>
+
+
+       <div class="create_account">
+           <button onclick="checkCreated()">Create account</button>
+       </div>       
+</div>
+
+<div class="error">
+    <p id="error">Данный логин уже используется</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="../static/js/registration.js"></script>
+<script src="../../../../front-end/test/src/showErrors.js"></script>
+</body>
+</html>
