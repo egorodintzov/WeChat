@@ -11,9 +11,15 @@ public class AuthorizationController {
         return "login";
     }
 
+    @GetMapping("/registration")
+    public String registration() {
+        return "registration";
+    }
+
     @GetMapping("/")
     public String redirect() {
         return "redirect:/chats";
     }
+
 
 }

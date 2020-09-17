@@ -1,5 +1,6 @@
 package com.chat.security;
 
+import com.chat.exceptions.UserNotFoundException;
 import com.chat.model.User;
 import com.chat.security.jwt.JwtUser;
 import com.chat.service.user.UserService;
@@ -17,6 +18,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public JwtUser loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = service.findByLogin(username);
-        return JwtUser.userToJwtUser(user);
+        if(user==null)
+           return JwtUser.userToJwtUser(user);
+        throw new UserNotFoundException("user not found");
     }
 }

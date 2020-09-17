@@ -48,7 +48,7 @@ function drawChats(messageText = "") {
 
 async function getChats() {
     try {
-        const response = await request.get('/allChats');
+        const response = await request.get('/c/allChats');
         $('body').css('display','block');
         if (response.data.length === 0) {
             drawChats("No chats");
@@ -103,7 +103,7 @@ function getUsers() {
 
 async function getUsersRequest(login) {
     try {
-        const response = await request.post('/users', {login});
+        const response = await request.post('/u/users', {login});
         return response.data;
     } catch(err) {
         if (err.response.status === 401) {
@@ -122,7 +122,7 @@ async function drawUsers(data) {
             user.onclick = async function () {
 
                 try {
-                    const response = await request.post('/chat', {
+                    const response = await request.post('/c/chat', {
                         list: [
                             {login:login.login},
                             {login:data[i].login}
@@ -158,7 +158,7 @@ function clearUsers() {
 
 async function getCurrentUser() {
     try {
-        const response = await request.get('/auth/me');
+        const response = await request.get('/u/auth/user');
         return response.data;
     } catch (err) {
         if (err.status === 401) {

@@ -26,7 +26,7 @@ function checkCreated() {
     }
 
     else {
-        axios.post('/checkCreated', {
+        axios.post('/auth/created', {
             login: login
         })
             .then(function (response) {
@@ -48,7 +48,7 @@ function checkCreated() {
 
 function registration(login,password) {
 
-      axios.post('/registration',{
+      axios.post('/auth/registration',{
           login:login,
           password:password
       })

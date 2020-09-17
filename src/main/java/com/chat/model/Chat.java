@@ -12,12 +12,8 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToMany(targetEntity = User.class,fetch=FetchType.LAZY)
-    @JoinTable(name="user_chat_table",
-            // column which contains id chats all users which stored at this list
-            joinColumns = {@JoinColumn(name="chats")},
-            inverseJoinColumns = {@JoinColumn(name = "users")})
-    private List<User> listUsers;
+    @ManyToMany(targetEntity = User.class,fetch=FetchType.LAZY,mappedBy = "users")
+    private Set<User> listUsers;
 
     @ManyToMany(targetEntity = Message.class)
     private List<Message> listMessages;
@@ -30,11 +26,11 @@ public class Chat {
         this.id = id;
     }
 
-    public List<User> getListUsers() {
+    public Set<User> getListUsers() {
         return listUsers;
     }
 
-    public void setListUsers(List<User> listUsers) {
+    public void setListUsers(Set<User> listUsers) {
         this.listUsers = listUsers;
     }
 

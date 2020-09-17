@@ -3,6 +3,7 @@ package com.chat.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -12,6 +13,7 @@ public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
+    @Column(unique = true)
     private String login;
     private String password;
 
@@ -19,13 +21,14 @@ public class User {
     private Photo photo;
 
     @ManyToMany(targetEntity = Chat.class,fetch = FetchType.LAZY)
-    @JoinTable(name="user_chat_table",
+    @JoinTable(name="user_chats",
                // column which contains id users all chats which stored at this list
-               joinColumns = {@JoinColumn(name="users")},
-               inverseJoinColumns = {@JoinColumn(name = "chats")})
-    private List<Chat> listChats;
+               joinColumns = {@JoinColumn(name="user_id")},
+               // column which contains id chats all users which stored at first column
+               inverseJoinColumns = {@JoinColumn(name = "chat_id")})
+    private Set<Chat> chats;
 
-    @OneToMany(targetEntity = Message.class)
+    @OneToMany(targetEntity = Message.class,fetch = FetchType.LAZY)
     private List<Message> listMessages;
 
     @Enumerated(value = EnumType.STRING)
@@ -70,12 +73,12 @@ public class User {
         this.id = id;
     }
 
-    public List<Chat> getListChats() {
-        return listChats;
+    public Set<Chat> getChats() {
+        return chats;
     }
 
-    public void setListChats(List<Chat> listChats) {
-        this.listChats = listChats;
+    public void setChats(Set<Chat> chats) {
+        this.chats = chats;
     }
 
     public List<Message> getListMessages() {

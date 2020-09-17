@@ -11,15 +11,15 @@ import com.chat.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.naming.AuthenticationNotSupportedException;
 import java.util.logging.Logger;
 
 @RestController
+@RequestMapping("/auth")
 public class AuthenticationRestController {
-
-     static Logger logger = Logger.getLogger(AuthenticationRestController.class.getName());
 
      @Autowired
      private JwtProvider provider;
@@ -32,31 +32,33 @@ public class AuthenticationRestController {
 
      @PostMapping("/authenticate")
      public TokenDto authenticate(@RequestBody AuthDto authDto) {
-         if(authDto!=null && authService.checkUser(authDto) && authService.checkIsCreated(authDto.getLogin())) {
-              logger.info("true");
+
+         if(authDto!=null && authService.checkIsCreated(authDto.getLogin()) && authService.checkUser(authDto)) {
               return new TokenDto(provider.generateToken(authDto.getLogin()));
          }
-         return null;
+         return new TokenDto("no token");
      }
 
      @PostMapping("/registration")
      public TokenDto registration(@RequestBody AuthDto authDto) {
-          if(authDto!=null) {
-               User user = new User(authDto.getLogin(),authDto.getPassword());
-               user.setRole(Role.USER);
-               userService.create(user);
+          if(authDto!=null && authService.checkIsCreated(authDto.getLogin())) {
+               userService.create(authDto);
                return new TokenDto(provider.generateToken(authDto.getLogin()));
           }
-          return null;
+          return new TokenDto("no token");
      }
 
-     @PostMapping("/checkCreated")
+     @PostMapping("/created")
      public boolean checkIsCreated(@RequestBody UserDto userDto) {
-          return authService.checkIsCreated(userDto.getLogin());
+          if(userDto!=null)
+             return authService.checkIsCreated(userDto.getLogin());
+          return false;
      }
 
-     @PostMapping("/checkUser")
+     @PostMapping("/correct")
      public boolean checkUser(@RequestBody AuthDto authDto) {
-          return authService.checkUser(authDto);
+          if(authDto!=null)
+             return authService.checkUser(authDto);
+          return false;
      }
 }

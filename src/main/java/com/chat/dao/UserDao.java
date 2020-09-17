@@ -13,5 +13,5 @@ public interface UserDao extends JpaRepository<User,Long> {
 
     List<User> findAllByLoginStartingWith(String login);
 
-
+    boolean existsByLogin(String login);
 }

@@ -4,18 +4,14 @@ import com.chat.dto.ChatDto;
 import com.chat.service.chat.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.logging.Logger;
 
 @RestController
+@RequestMapping("/c")
 public class ChatRestController {
-
-    Logger logger = Logger.getLogger(ChatRestController.class.getName());
 
     @Qualifier("chatServiceImpl")
     @Autowired
@@ -28,7 +24,7 @@ public class ChatRestController {
 
     @PostMapping("/chat")
     public void createChat(@RequestBody ChatDto chatDto) {
-        logger.info(chatDto.getList() + "");
-        service.createChat(chatDto);
+        if(chatDto!=null)
+           service.createChat(chatDto);
     }
 }
