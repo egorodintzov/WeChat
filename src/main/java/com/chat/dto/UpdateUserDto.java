@@ -1,9 +1,15 @@
 package com.chat.dto;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 public class UpdateUserDto {
 
+    @NotNull
     private String login;
+    @NotNull
     private String password;
+    @Min(1)
     private long id;
 
     public UpdateUserDto() {}

@@ -3,8 +3,10 @@ package com.chat.service.auth;
 
 import com.chat.dao.UserDao;
 import com.chat.dto.AuthDto;
+import com.chat.model.User;
 import com.chat.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.logging.Logger;
@@ -21,6 +23,9 @@ public class AuthServiceImpl implements AuthService {
     private UserService userService;
 
     @Autowired
+    private PasswordEncoder encoder;
+
+    @Autowired
     private UserDao dao;
 
     private static final Logger logger = Logger.getLogger(com.chat.service.auth.AuthService.class.getName());
@@ -33,15 +38,15 @@ public class AuthServiceImpl implements AuthService {
      */
 
     @Override
-    public boolean checkIsCreated(String login) {
+    public boolean isCreated(String login) {
 
-        // if user equals null - return false , else return true
+        // if user equals not null - return true , else return false
         if (dao.existsByLogin(login)) {
-            logger.info("user didnt created");
-            return false;
-        } else {
             logger.info("user created");
             return true;
+        } else {
+            logger.info("user didnt created");
+            return false;
         }
     }
 
@@ -53,10 +58,12 @@ public class AuthServiceImpl implements AuthService {
      */
 
     @Override
-    public boolean checkUser(AuthDto authDto) {
+    public boolean isCorrectPassword(AuthDto authDto) {
+
+        User user = userService.findByLogin(authDto.getLogin());
 
         //if password is correct - return true
-        if (userService.findByLogin(authDto.getLogin()).getPassword().equals(authDto.getPassword()))
+        if (user!=null && encoder.matches(user.getPassword(),authDto.getPassword()))
             return true;
 
         //else - return false

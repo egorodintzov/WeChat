@@ -5,6 +5,7 @@ import com.chat.dto.AuthDto;
 import com.chat.dto.PhotoDto;
 import com.chat.dto.UpdateUserDto;
 import com.chat.dto.UserDto;
+import com.chat.exceptions.NoPhotoException;
 import com.chat.exceptions.UserNotFoundException;
 import com.chat.model.Photo;
 import com.chat.model.Role;
@@ -29,18 +30,20 @@ public class UserServiceImpl implements UserService {
 
     /**
      * create chat
+     *
      * @param authDto object which contains login and password
      */
 
     @Override
     public void create(AuthDto authDto) {
-        User user = new User(authDto.getLogin(),encoder.encode(authDto.getPassword()));
+        User user = new User(authDto.getLogin(), encoder.encode(authDto.getPassword()));
         user.setRole(Role.USER);
         dao.save(user);
     }
 
     /**
      * delete user by id
+     *
      * @param id
      */
 
@@ -51,23 +54,31 @@ public class UserServiceImpl implements UserService {
 
     /**
      * find user by id
+     *
      * @param id
      * @return user object
      */
 
     @Override
     public User findById(long id) {
+        User user = dao.findById(id);
+        if(user==null)
+           throw new UserNotFoundException("user not found");
         return dao.findById(id);
     }
 
     /**
      * find user by login
+     *
      * @param login
      * @return user object
      */
 
     @Override
     public User findByLogin(String login) {
+        User user = dao.findByLogin(login);
+        if (user == null)
+            throw new UserNotFoundException("user not found");
         return dao.findByLogin(login);
     }
 
@@ -78,19 +89,21 @@ public class UserServiceImpl implements UserService {
 
     /**
      * get photo of current user
+     *
      * @return photo dto object
      */
 
     @Override
     public PhotoDto getPhoto() {
         Photo photo = dao.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getPhoto();
-        if(photo!=null)
+        if (photo != null)
             return new PhotoDto(photo.getContent());
-        return null;
+        throw new NoPhotoException("no photo");
     }
 
     /**
      * find all users which have login which starts with this words
+     *
      * @param login
      * @return list with user dto objects
      */
@@ -98,20 +111,25 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> findAllByLoginStartsWith(String login) {
         List<UserDto> list = new LinkedList<>();
-        for(User user : dao.findAllByLoginStartingWith(login)) {
-            list.add(new UserDto(user.getLogin()));
+        List<User> users = dao.findAllByLoginStartingWith(login);
+        if (users == null)
+            throw new UserNotFoundException("user not found");
+        else {
+            for (User user : dao.findAllByLoginStartingWith(login))
+                list.add(new UserDto(user.getLogin()));
+            return list;
         }
-        return list;
     }
 
     /**
      * update login and password
+     *
      * @param user object
      */
 
     @Override
     public void updateLoginAndPassword(UpdateUserDto user) {
-        User dbUser= findById(user.getId());
+        User dbUser = findById(user.getId());
         dbUser.setLogin(user.getLogin());
         dbUser.setPassword(user.getPassword());
         dao.save(dbUser);
@@ -119,6 +137,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * update photo
+     *
      * @param user object
      */
 
@@ -131,6 +150,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * update user chats (use when chat's creating)
+     *
      * @param user object
      */
 
@@ -143,6 +163,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * update user messages (use when message's creating)
+     *
      * @param user object
      */
 
@@ -155,10 +176,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByIndex(Set<User> users, int index) {
-        int i=0;
-        for(User user : users) {
-            if(i==index)
-               return user;
+        int i = 0;
+        for (User user : users) {
+            if (i == index)
+                return user;
             i++;
         }
         throw new UserNotFoundException("user not found");

@@ -1,7 +1,10 @@
 package com.chat.dto;
 
+import javax.validation.constraints.NotNull;
+
 public class UserDto {
 
+    @NotNull
     private String login;
 
     public UserDto() {}

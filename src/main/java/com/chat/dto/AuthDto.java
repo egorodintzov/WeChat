@@ -1,8 +1,15 @@
 package com.chat.dto;
 
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class AuthDto {
 
+    @NotNull
     private String login;
+    @NotNull
+    @Size(min=6)
     private String password;
 
     public AuthDto() {}

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -23,8 +24,7 @@ public class ChatRestController {
     }
 
     @PostMapping("/chat")
-    public void createChat(@RequestBody ChatDto chatDto) {
-        if(chatDto!=null)
-           service.createChat(chatDto);
+    public void createChat(@Valid @RequestBody ChatDto chatDto) {
+        service.createChat(chatDto);
     }
 }
