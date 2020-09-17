@@ -7,6 +7,7 @@ import javax.validation.constraints.Size;
 public class AuthDto {
 
     @NotNull
+    @Size(min=2)
     private String login;
     @NotNull
     @Size(min=6)
