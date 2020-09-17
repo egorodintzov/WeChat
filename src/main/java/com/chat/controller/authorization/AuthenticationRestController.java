@@ -40,7 +40,7 @@ public class AuthenticationRestController {
         if (authService.isCorrectPassword(authDto)) {
             return new TokenDto(provider.generateToken(authDto.getLogin()));
         }
-        throw new WrongLoginOrPasswordException("wrong login or password");
+        throw new WrongLoginOrPasswordException("Wrong login or password");
     }
 
 
@@ -51,7 +51,7 @@ public class AuthenticationRestController {
             userService.create(authDto);
             return new TokenDto(provider.generateToken(authDto.getLogin()));
         }
-        throw new UserAllReadyExistsException("user all ready exists");
+        throw new UserAllReadyExistsException("User all ready exists");
     }
 
 

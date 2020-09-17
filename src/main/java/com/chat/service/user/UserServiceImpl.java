@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
     public User findByLogin(String login) {
         User user = dao.findByLogin(login);
         if (user == null)
-            throw new UserNotFoundException("user not found");
+            throw new UserNotFoundException("User not found");
         return dao.findByLogin(login);
     }
 
@@ -182,7 +182,7 @@ public class UserServiceImpl implements UserService {
                 return user;
             i++;
         }
-        throw new UserNotFoundException("user not found");
+        throw new UserNotFoundException("User not found");
     }
 
 }
