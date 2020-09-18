@@ -9,8 +9,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.logging.Logger;
+
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
+
+    private static final Logger log = Logger.getLogger(UserDetailsServiceImpl.class.getName());
 
     @Autowired
     private UserService service;
@@ -19,6 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public JwtUser loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = service.findByLogin(username);
         if (user == null) {
+            log.info("user not found");
             throw new UserNotFoundException("user not found");
         }
 

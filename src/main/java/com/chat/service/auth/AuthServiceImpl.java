@@ -28,8 +28,6 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private UserDao dao;
 
-    private static final Logger logger = Logger.getLogger(com.chat.service.auth.AuthService.class.getName());
-
     /**
      * check is user created
      *
@@ -42,11 +40,9 @@ public class AuthServiceImpl implements AuthService {
 
         // if user equals not null - return true , else return false
         if (dao.existsByLogin(login)) {
-            logger.info("user created");
             return true;
         }
 
-        logger.info("user didnt created");
         return false;
     }
 

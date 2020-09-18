@@ -17,8 +17,6 @@ import java.util.logging.Logger;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
-    private static Logger log = Logger.getLogger(JwtFilter.class.getName());
-
     @Autowired
     private JwtProvider provider;
 
@@ -28,12 +26,10 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String login = null;
-        String token = getTokenFromRequest(request);
-        log.info(token);
+        final String token = getTokenFromRequest(request);
         if(token!=null) {
             login = provider.getLoginFromToken(token);
             if (login != null) {
-                log.info(login);
                 JwtUser jwtUser = userDetailsService.loadUserByUsername(login);
                 if (provider.validityToken(token, jwtUser)) {
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
@@ -45,7 +41,7 @@ public class JwtFilter extends OncePerRequestFilter {
     }
 
     private String getTokenFromRequest(HttpServletRequest request) {
-        String bearer = request.getHeader("Authorization");
+        final String bearer = request.getHeader("Authorization");
         if(bearer!=null && bearer.startsWith("Bearer ")) {
             return bearer.substring(7);
         }

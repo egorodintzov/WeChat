@@ -48,14 +48,15 @@ public class ChatServiceImpl implements ChatService {
         Set<Chat> chats = service.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getChats();
         List<String> listUsers = new LinkedList<>();
 
-        // going through all chats of current user
-        for (Chat chat : chats) {
+        if(chats!=null) {
+            // going through all chats of current user
+            for (Chat chat : chats) {
 
-            // get user with index 1 from list with chat users, get user login and add to list
-            listUsers.add(service.getUserByIndex(chat.getListUsers(),1).getLogin());
+                // get user with index 1 from list with chat users, get user login and add to list
+                listUsers.add(service.getUserByIndex(chat.getListUsers(), 1).getLogin());
 
+            }
         }
-
         return listUsers;
     }
 

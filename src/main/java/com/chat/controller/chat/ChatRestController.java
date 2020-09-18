@@ -23,7 +23,7 @@ public class ChatRestController {
         return service.getAllChats();
     }
 
-    @PostMapping("/{login}/chat")
+    @PostMapping("/chat/{login}")
     public void createChat(@PathVariable("login") String login,@Valid @RequestBody ChatDto chatDto) {
         service.createChat(chatDto);
     }

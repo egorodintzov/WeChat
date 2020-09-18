@@ -15,8 +15,6 @@ import java.util.logging.Logger;
 @Component
 public class JwtProvider {
 
-     private static Logger log = Logger.getLogger(JwtProvider.class.getName());
-
      @Value("$(jwt.secret")
      private String secret;
 
@@ -46,21 +44,6 @@ public class JwtProvider {
      }
 
      public boolean validityToken(String token,JwtUser jwtUser) {
-          log.info(Jwts
-                       .parser()
-                       .setSigningKey(secret)
-                       .parseClaimsJws(token)
-                       .getBody()
-                       .getExpiration() + "");
-          log.info(new Date(System.currentTimeMillis()) + "");
-
-          log.info(Jwts
-                  .parser()
-                  .setSigningKey(secret)
-                  .parseClaimsJws(token)
-                  .getBody()
-                  .getExpiration().after(new Date(System.currentTimeMillis())) + "");
-
           return getLoginFromToken(token).equals(jwtUser.getUsername()) &&
                  Jwts
                       .parser()

@@ -1,10 +1,12 @@
 package com.chat.dto;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class MessageDto {
 
     @NotNull
+    @Size(min=1)
     private String message;
 
     public MessageDto() {}

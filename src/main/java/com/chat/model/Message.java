@@ -2,6 +2,8 @@ package com.chat.model;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -11,9 +13,12 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     private String message;
+
     @ManyToOne(targetEntity = User.class)
     private User sender;
+
     @ManyToMany(targetEntity = Chat.class)
     private List<Chat> listChats;
 

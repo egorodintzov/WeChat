@@ -6,7 +6,6 @@ import com.chat.model.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.logging.Logger;
 
 @Service
 public class MessageServiceImpl implements MessageService {
@@ -14,7 +13,6 @@ public class MessageServiceImpl implements MessageService {
     @Autowired
     private MessageDao dao;
 
-    private static Logger logger = Logger.getLogger(MessageService.class.getName());
 
     /**
      * create message
@@ -24,7 +22,6 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public void createMessage(Message message) {
-        logger.info(message + "");
         dao.save(message);
     }
 
@@ -36,9 +33,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public void updateMessage(MessageContentDto message) {
-        logger.info("new message: " + message.getMessage());
         Message dbMessage = dao.findById(message.getId());
-        logger.info("old message: " + dbMessage.getMessage());
         dbMessage.setMessage(message.getMessage());
         dao.save(dbMessage);
     }

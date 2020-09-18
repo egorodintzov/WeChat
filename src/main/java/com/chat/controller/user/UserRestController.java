@@ -38,7 +38,7 @@ public class UserRestController {
       return service.getAllUsers();
    }
 
-   @GetMapping("/auth/user")
+   @GetMapping("/user/auth")
    public UserDto getCurrentUser() {
       return service.getCurrentUser();
    }
