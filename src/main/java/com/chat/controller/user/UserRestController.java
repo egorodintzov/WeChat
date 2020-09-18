@@ -43,8 +43,8 @@ public class UserRestController {
       return service.getCurrentUser();
    }
 
-   @PutMapping("/update")
-   public void update(@Valid @RequestBody UpdateUserDto userDto) {
+   @PutMapping("/{login}/update")
+   public void update(@PathVariable("login") String login,@Valid @RequestBody UpdateUserDto userDto) {
          service.updateLoginAndPassword(userDto);
    }
 

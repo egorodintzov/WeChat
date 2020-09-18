@@ -18,13 +18,13 @@ public class ChatRestController {
     @Autowired
     private ChatService service;
 
-    @GetMapping("/allChats")
+    @GetMapping("/chats")
     public List<String> getAllChats() {
         return service.getAllChats();
     }
 
-    @PostMapping("/chat")
-    public void createChat(@Valid @RequestBody ChatDto chatDto) {
+    @PostMapping("/{login}/chat")
+    public void createChat(@PathVariable("login") String login,@Valid @RequestBody ChatDto chatDto) {
         service.createChat(chatDto);
     }
 }
