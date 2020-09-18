@@ -17,7 +17,7 @@ public class PhotoRestController {
      @Autowired
      private PhotoService service;
 
-     @PostMapping("/uploadFile")
+     @PostMapping("/upload")
      public void uploadFile(@RequestBody MultipartFile file) throws IOException {
           service.createPhoto(file.getBytes(),file.getName(),file.getContentType());
      }
