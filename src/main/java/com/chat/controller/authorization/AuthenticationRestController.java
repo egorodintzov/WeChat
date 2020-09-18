@@ -43,7 +43,6 @@ public class AuthenticationRestController {
             throw new WrongLoginOrPasswordException("Wrong login or password");
         }
 
-        log.info("user authenticated,login-" + authDto.getLogin() + ",password-" + authDto.getPassword());
         return new TokenDto(provider.generateToken(authDto.getLogin()));
     }
 
@@ -55,7 +54,6 @@ public class AuthenticationRestController {
             throw new UserAllReadyExistsException("User all ready exists");
         }
 
-        log.info("user created,login-" + authDto.getLogin() + ",password-" + authDto.getPassword());
         userService.create(authDto);
         return new TokenDto(provider.generateToken(authDto.getLogin()));
 
