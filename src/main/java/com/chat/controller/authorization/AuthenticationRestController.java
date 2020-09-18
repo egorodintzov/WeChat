@@ -24,7 +24,6 @@ import java.util.logging.Logger;
 @RequestMapping("/api/auth")
 public class AuthenticationRestController {
 
-    private final static Logger log = Logger.getLogger(AuthenticationRestController.class.getName());
 
     @Autowired
     private JwtProvider provider;
