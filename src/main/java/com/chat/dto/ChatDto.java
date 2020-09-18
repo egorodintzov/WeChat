@@ -7,7 +7,7 @@ import java.util.List;
 public class ChatDto {
 
     @NotNull
-    @Size(max = 2,min = 1)
+    @Size(min=1,max = 2)
     private List<UserDto> list;
 
     public ChatDto() {}
