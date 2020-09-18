@@ -37,21 +37,22 @@ public class AuthenticationRestController {
     @PostMapping("/authenticate")
     public TokenDto authenticate(@Valid @RequestBody AuthDto authDto) {
 
-        if (authService.isCorrectPassword(authDto)) {
+        if (!authService.isCorrectPassword(authDto))
+            throw new WrongLoginOrPasswordException("Wrong login or password");
+        else
             return new TokenDto(provider.generateToken(authDto.getLogin()));
-        }
-        throw new WrongLoginOrPasswordException("Wrong login or password");
     }
 
 
     @PostMapping("/registration")
     public TokenDto registration(@Valid @RequestBody AuthDto authDto) {
 
-        if (authService.isCreated(authDto.getLogin())) {
+        if (authService.isCreated(authDto.getLogin()))
+            throw new UserAllReadyExistsException("User all ready exists");
+        else {
             userService.create(authDto);
             return new TokenDto(provider.generateToken(authDto.getLogin()));
         }
-        throw new UserAllReadyExistsException("User all ready exists");
     }
 
 
