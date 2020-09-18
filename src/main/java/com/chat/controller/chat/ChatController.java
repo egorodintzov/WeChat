@@ -24,14 +24,11 @@ public class ChatController {
         return message;
     }
 
-    @GetMapping("/chats")
+    @GetMapping("/")
     public String chat() {
         return "chats";
     }
 
-    @GetMapping("/")
-    public String redirect() {
-        return "redirect:/chats";
-    }
+
 
 }

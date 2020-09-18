@@ -21,7 +21,7 @@ import javax.validation.Valid;
 import java.util.logging.Logger;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/a")
 public class AuthenticationRestController {
 
 
