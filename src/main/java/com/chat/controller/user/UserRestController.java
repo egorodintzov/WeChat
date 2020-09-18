@@ -43,7 +43,7 @@ public class UserRestController {
       return service.getCurrentUser();
    }
 
-   @PutMapping("/{login}")
+   @PutMapping("/user/{login}")
    public void update(@PathVariable("login") String login,@Valid @RequestBody UpdateUserDto userDto) {
          service.updateLoginAndPassword(userDto);
    }
