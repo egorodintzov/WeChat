@@ -31,9 +31,9 @@ public class UserRestController {
          return service.findByLogin(dto.getLogin());
    }
 
-   // method for test (will delete)
 
    @GetMapping("/all")
+   @Deprecated
    public List<User> getAll() {
       return service.getAllUsers();
    }
@@ -43,7 +43,7 @@ public class UserRestController {
       return service.getCurrentUser();
    }
 
-   @PutMapping("/update")
+   @PutMapping("/{login}")
    public void update(@PathVariable("login") String login,@Valid @RequestBody UpdateUserDto userDto) {
          service.updateLoginAndPassword(userDto);
    }
