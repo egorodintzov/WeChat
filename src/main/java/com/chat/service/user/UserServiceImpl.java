@@ -62,8 +62,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(long id) {
         User user = dao.findById(id);
-        if(user==null)
-           throw new UserNotFoundException("user not found");
+        if (user == null) {
+            throw new UserNotFoundException("user not found");
+        }
+
         return dao.findById(id);
     }
 
@@ -77,8 +79,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByLogin(String login) {
         User user = dao.findByLogin(login);
-        if (user == null)
+        if (user == null) {
             throw new UserNotFoundException("User not found");
+        }
+
         return dao.findByLogin(login);
     }
 
@@ -96,9 +100,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public PhotoDto getPhoto() {
         Photo photo = dao.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getPhoto();
-        if (photo != null)
-            return new PhotoDto(photo.getContent());
-        throw new NoPhotoException("no photo");
+        if (photo == null) {
+            throw new NoPhotoException("no photo");
+        }
+
+        return new PhotoDto(photo.getContent());
     }
 
     /**
@@ -112,13 +118,14 @@ public class UserServiceImpl implements UserService {
     public List<UserDto> findAllByLoginStartsWith(String login) {
         List<UserDto> list = new LinkedList<>();
         List<User> users = dao.findAllByLoginStartingWith(login);
-        if (users == null)
+        if (users == null) {
             throw new UserNotFoundException("user not found");
-        else {
-            for (User user : dao.findAllByLoginStartingWith(login))
-                list.add(new UserDto(user.getLogin()));
-            return list;
         }
+
+        for (User user : dao.findAllByLoginStartingWith(login)) {
+            list.add(new UserDto(user.getLogin()));
+        }
+        return list;
     }
 
     /**
@@ -174,15 +181,35 @@ public class UserServiceImpl implements UserService {
         dao.save(dbUser);
     }
 
+    /**
+     * get user from set by index
+     *
+     * @param users - set collection
+     * @param index
+     * @return user object
+     */
+
     @Override
     public User getUserByIndex(Set<User> users, int index) {
         int i = 0;
         for (User user : users) {
-            if (i == index)
+            if (i == index) {
                 return user;
+            }
             i++;
         }
         throw new UserNotFoundException("User not found");
+    }
+
+    /**
+     * get current user
+     *
+     * @return user dto object
+     */
+
+    @Override
+    public UserDto getCurrentUser() {
+        return new UserDto(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 
 }

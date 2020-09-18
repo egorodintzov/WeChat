@@ -17,16 +17,21 @@ public class ChatController {
     @Autowired
     private MessageService service;
 
-   @MessageMapping("/message")
-   @SendTo("/chat/topic")
-   public MessageDto sendMessageToTopic(MessageDto message) {
-       service.createMessage(new Message(message.getMessage()));
-       return message;
-   }
+    @MessageMapping("/message")
+    @SendTo("/chat/topic")
+    public MessageDto sendMessageToTopic(MessageDto message) {
+        service.createMessage(new Message(message.getMessage()));
+        return message;
+    }
 
-   @GetMapping("/chats")
-   public String chat() {
-       return "chats";
-   }
+    @GetMapping("/chats")
+    public String chat() {
+        return "chats";
+    }
+
+    @GetMapping("/")
+    public String redirect() {
+        return "redirect:/chats";
+    }
 
 }

@@ -16,10 +16,4 @@ public class AuthorizationController {
         return "registration";
     }
 
-    @GetMapping("/")
-    public String redirect() {
-        return "redirect:/chats";
-    }
-
-
 }

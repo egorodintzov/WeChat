@@ -7,7 +7,6 @@ import com.chat.model.User;
 import com.chat.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -15,7 +14,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/u")
+@RequestMapping("/api/u")
 public class UserRestController {
 
    @Qualifier("userServiceImpl")
@@ -41,7 +40,7 @@ public class UserRestController {
 
    @GetMapping("/auth/user")
    public UserDto getCurrentUser() {
-      return new UserDto(SecurityContextHolder.getContext().getAuthentication().getName());
+      return service.getCurrentUser();
    }
 
    @PutMapping("/update")

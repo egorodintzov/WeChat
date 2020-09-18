@@ -34,4 +34,6 @@ public interface UserService {
     void updatePhoto(User user);
 
     User getUserByIndex(Set<User> users, int index);
+
+    UserDto getCurrentUser();
 }

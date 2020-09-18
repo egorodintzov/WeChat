@@ -21,8 +21,10 @@ import javax.validation.Valid;
 import java.util.logging.Logger;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthenticationRestController {
+
+    private final static Logger log = Logger.getLogger(AuthenticationRestController.class.getName());
 
     @Autowired
     private JwtProvider provider;
@@ -37,22 +39,26 @@ public class AuthenticationRestController {
     @PostMapping("/authenticate")
     public TokenDto authenticate(@Valid @RequestBody AuthDto authDto) {
 
-        if (!authService.isCorrectPassword(authDto))
+        if (!authService.isCorrectPassword(authDto)) {
             throw new WrongLoginOrPasswordException("Wrong login or password");
-        else
-            return new TokenDto(provider.generateToken(authDto.getLogin()));
+        }
+
+        log.info("user authenticated,login-" + authDto.getLogin() + ",password-" + authDto.getPassword());
+        return new TokenDto(provider.generateToken(authDto.getLogin()));
     }
 
 
     @PostMapping("/registration")
     public TokenDto registration(@Valid @RequestBody AuthDto authDto) {
 
-        if (authService.isCreated(authDto.getLogin()))
+        if (authService.isCreated(authDto.getLogin())) {
             throw new UserAllReadyExistsException("User all ready exists");
-        else {
-            userService.create(authDto);
-            return new TokenDto(provider.generateToken(authDto.getLogin()));
         }
+
+        log.info("user created,login-" + authDto.getLogin() + ",password-" + authDto.getPassword());
+        userService.create(authDto);
+        return new TokenDto(provider.generateToken(authDto.getLogin()));
+
     }
 
 

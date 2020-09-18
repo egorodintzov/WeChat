@@ -44,10 +44,10 @@ public class AuthServiceImpl implements AuthService {
         if (dao.existsByLogin(login)) {
             logger.info("user created");
             return true;
-        } else {
-            logger.info("user didnt created");
-            return false;
         }
+
+        logger.info("user didnt created");
+        return false;
     }
 
     /**
@@ -63,8 +63,9 @@ public class AuthServiceImpl implements AuthService {
         User user = userService.findByLogin(authDto.getLogin());
 
         //if password is correct - return true
-        if (user!=null && encoder.matches(user.getPassword(),authDto.getPassword()))
+        if (user!=null && encoder.matches(user.getPassword(),authDto.getPassword())) {
             return true;
+        }
 
         //else - return false
         return false;
