@@ -23,7 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public JwtUser loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = service.findByLogin(username);
         if (user == null) {
-            log.info("user not found");
+            log.severe("user not found");
             throw new UserNotFoundException("user not found");
         }
 

@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 @RequestMapping("/api")
 public class AuthenticationRestController {
 
+    private static Logger log = Logger.getLogger(AuthenticationRestController.class.getName());
 
     @Autowired
     private JwtProvider provider;
@@ -39,6 +40,7 @@ public class AuthenticationRestController {
     public TokenDto authenticate(@Valid @RequestBody AuthDto authDto) {
 
         if (!authService.isCorrectPassword(authDto)) {
+            log.severe("wrong login or password,login-" + authDto.getLogin());
             throw new WrongLoginOrPasswordException("Wrong login or password");
         }
 
