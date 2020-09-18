@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @RestController
-@RequestMapping("/api/c")
+@RequestMapping("/api")
 public class ChatRestController {
 
     @Qualifier("chatServiceImpl")

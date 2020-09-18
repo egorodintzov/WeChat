@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/u")
+@RequestMapping("/api")
 public class UserRestController {
 
    @Qualifier("userServiceImpl")
