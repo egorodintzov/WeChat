@@ -18,8 +18,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public JwtUser loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = service.findByLogin(username);
-        if(user==null)
-           return JwtUser.userToJwtUser(user);
-        throw new UserNotFoundException("user not found");
+        if (user == null) {
+            throw new UserNotFoundException("user not found");
+        }
+
+        return JwtUser.userToJwtUser(user);
     }
 }
