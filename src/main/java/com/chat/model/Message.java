@@ -13,11 +13,8 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     private String message;
-
-    @ManyToOne(targetEntity = User.class)
-    private User sender;
+    private String senderLogin;
 
     @ManyToMany(targetEntity = Chat.class)
     private List<Chat> listChats;
@@ -44,12 +41,12 @@ public class Message {
         this.id = id;
     }
 
-    public User getSender() {
-        return sender;
+    public String getSenderLogin() {
+        return senderLogin;
     }
 
-    public void setSender(User sender) {
-        this.sender = sender;
+    public void setSenderLogin(String senderLogin) {
+        this.senderLogin = senderLogin;
     }
 
     public List<Chat> getListChats() {

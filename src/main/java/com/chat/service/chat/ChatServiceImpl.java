@@ -3,6 +3,7 @@ package com.chat.service.chat;
 import com.chat.dao.ChatDao;
 import com.chat.dto.ChatDto;
 import com.chat.dto.UserDto;
+import com.chat.exceptions.ChatNotFoundException;
 import com.chat.model.Chat;
 import com.chat.model.User;
 import com.chat.service.user.UserService;
@@ -33,7 +34,9 @@ public class ChatServiceImpl implements ChatService {
      */
 
     public Chat findById(long id) {
-        return dao.findById(id);
+        return dao.findById(id).orElseThrow(() -> {
+            throw new ChatNotFoundException("chat not found");
+        });
     }
 
     /**

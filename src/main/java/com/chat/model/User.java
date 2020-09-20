@@ -28,9 +28,6 @@ public class User {
                inverseJoinColumns = {@JoinColumn(name = "chat_id")})
     private Set<Chat> chats;
 
-    @OneToMany(targetEntity = Message.class,fetch = FetchType.LAZY)
-    private List<Message> listMessages;
-
     @Enumerated(value = EnumType.STRING)
     private Role role;
 

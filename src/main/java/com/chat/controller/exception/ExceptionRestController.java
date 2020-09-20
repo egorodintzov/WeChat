@@ -1,9 +1,6 @@
 package com.chat.controller.exception;
 
-import com.chat.exceptions.NoPhotoException;
-import com.chat.exceptions.UserAllReadyExistsException;
-import com.chat.exceptions.UserNotFoundException;
-import com.chat.exceptions.WrongLoginOrPasswordException;
+import com.chat.exceptions.*;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -28,6 +25,11 @@ public class ExceptionRestController {
    @ExceptionHandler(value = UserAllReadyExistsException.class)
    public String callUserAllReadyExistsException() {
        return "user all ready exists";
+   }
+
+   @ExceptionHandler(value = ChatNotFoundException.class)
+   public String callChatNotFoundException() {
+       return "chat not found exception";
    }
 
 }

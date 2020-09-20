@@ -29,8 +29,6 @@ public interface UserService {
 
     void updateChats(User user);
 
-    void updateMessages(User user);
-
     void updatePhoto(User user);
 
     User getUserByIndex(Set<User> users, int index);

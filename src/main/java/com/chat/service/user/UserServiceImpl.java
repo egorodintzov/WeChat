@@ -56,17 +56,15 @@ public class UserServiceImpl implements UserService {
      * find user by id
      *
      * @param id
-     * @return user object
+     * @return User object
      */
 
     @Override
     public User findById(long id) {
-        User user = dao.findById(id);
-        if (user == null) {
-            throw new UserNotFoundException("user not found");
-        }
-
-        return dao.findById(id);
+        return dao.findById(id).orElseThrow(
+                () -> {
+                    throw new UserNotFoundException("user not found");
+                });
     }
 
     /**
@@ -168,18 +166,6 @@ public class UserServiceImpl implements UserService {
         dao.save(dbUser);
     }
 
-    /**
-     * update user messages (use when message's creating)
-     *
-     * @param user object
-     */
-
-    @Override
-    public void updateMessages(User user) {
-        User dbUser = findById(user.getId());
-        dbUser.setListMessages(user.getListMessages());
-        dao.save(dbUser);
-    }
 
     /**
      * get user from set by index
