@@ -19,7 +19,7 @@ public class Chat {
     @JoinTable(name = "chats_messages",
                joinColumns = {@JoinColumn(name = "chat_id")},
                inverseJoinColumns = {@JoinColumn(name = "message_id")})
-    private List<Message> listMessages;
+    private Set<Message> setMessages;
 
     public long getId() {
         return id;
@@ -37,11 +37,11 @@ public class Chat {
         this.listUsers = listUsers;
     }
 
-    public List<Message> getListMessages() {
-        return listMessages;
+    public Set<Message> getSetMessages() {
+        return setMessages;
     }
 
-    public void setListMessages(List<Message> listMessages) {
-        this.listMessages = listMessages;
+    public void setSetMessages(Set<Message> setMessages) {
+        this.setMessages = setMessages;
     }
 }

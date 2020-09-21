@@ -5,6 +5,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="messages")
@@ -17,7 +18,7 @@ public class Message {
     private String senderLogin;
 
     @ManyToMany(targetEntity = Chat.class,mappedBy = "chats",fetch = FetchType.LAZY)
-    private List<Chat> listChats;
+    private Set<Chat> setChats;
 
     public Message() {}
 
@@ -49,11 +50,11 @@ public class Message {
         this.senderLogin = senderLogin;
     }
 
-    public List<Chat> getListChats() {
-        return listChats;
+    public Set<Chat> getSetChats() {
+        return setChats;
     }
 
-    public void setListChats(List<Chat> listChats) {
-        this.listChats = listChats;
+    public void setSetChats(Set<Chat> setChats) {
+        this.setChats = setChats;
     }
 }

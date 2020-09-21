@@ -34,7 +34,6 @@ public class AuthenticationRestController {
     public TokenDto authenticate(@Valid @RequestBody AuthDto authDto) {
 
         if (!authService.isCorrectPassword(authDto)) {
-            log.severe("wrong login or password,login-" + authDto.getLogin());
             throw new WrongLoginOrPasswordException("Wrong login or password");
         }
 
