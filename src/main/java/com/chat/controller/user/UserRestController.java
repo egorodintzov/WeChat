@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 public class UserRestController {
 
    @Qualifier("userServiceImpl")
@@ -26,24 +26,24 @@ public class UserRestController {
    }
 
 
-   @GetMapping("/users")
-   public List<UserDto> findAllByLogin(@RequestParam String login) {
+   @GetMapping("/{login}")
+   public List<UserDto> findAllByLogin(@PathVariable("login") String login) {
        return service.findAllByLoginStartsWith(login);
    }
 
-   @GetMapping("/user/auth")
+   @GetMapping("/auth")
    public UserDto getLoginCurrentUser() {
       return service.getLoginCurrentUser();
    }
 
-   @PutMapping("/user/{login}")
+   @PutMapping("/{login}")
    public AuthDto update(@PathVariable("login") String login, @RequestParam String password) {
          service.updateLoginAndPassword(login,password);
          User user = service.findByLogin(login);
          return new AuthDto(user.getLogin(),user.getPassword());
    }
 
-   @GetMapping("/user/photo")
+   @GetMapping("/photo")
    public PhotoDto getPhoto() {
       return service.getPhoto();
    }
