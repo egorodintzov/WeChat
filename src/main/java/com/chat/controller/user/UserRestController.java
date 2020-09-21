@@ -4,10 +4,14 @@ import com.chat.dto.AuthDto;
 import com.chat.dto.PhotoDto;
 import com.chat.dto.UserDto;
 import com.chat.model.User;
+import com.chat.service.photo.PhotoService;
 import com.chat.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.util.List;
 
 
@@ -18,6 +22,9 @@ public class UserRestController {
    @Qualifier("userServiceImpl")
    @Autowired
    private UserService service;
+
+   @Autowired
+   private PhotoService photoService;
 
    @GetMapping("/all")
    @Deprecated
@@ -41,6 +48,11 @@ public class UserRestController {
          service.updateLoginAndPassword(login,password);
          User user = service.findByLogin(login);
          return new AuthDto(user.getLogin(),user.getPassword());
+   }
+
+   @PostMapping("/photo")
+   public void createPhoto(@RequestBody MultipartFile file) throws IOException {
+      photoService.createPhoto(file);
    }
 
    @GetMapping("/photo")
