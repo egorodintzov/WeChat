@@ -13,16 +13,19 @@ public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
-    @Column(unique = true)
+    @Column(unique = true,nullable = false)
     private String login;
+    @Column(nullable=false)
     private String password;
 
     @OneToOne(targetEntity = Photo.class)
     private Photo photo;
 
     @ManyToMany(targetEntity = Chat.class,fetch = FetchType.LAZY)
-    @JoinTable(name="user_chats",
+    @JoinTable(name="users_chats",
+               // column contains id users all chats which stored at this list
                joinColumns = {@JoinColumn(name="user_id")},
+               // column contains id chats all users which stored at first column
                inverseJoinColumns = {@JoinColumn(name = "chat_id")})
     private Set<Chat> chats;
 

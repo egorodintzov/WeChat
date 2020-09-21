@@ -16,7 +16,7 @@ public class Chat {
     private Set<User> listUsers;
 
     @ManyToMany(targetEntity = Message.class, fetch = FetchType.LAZY)
-    @JoinTable(name = "chat_messages",
+    @JoinTable(name = "chats_messages",
                joinColumns = {@JoinColumn(name = "chat_id")},
                inverseJoinColumns = {@JoinColumn(name = "message_id")})
     private List<Message> listMessages;
