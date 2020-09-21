@@ -22,14 +22,19 @@ public class ExceptionRestController {
        return "no photo";
    }
 
-   @ExceptionHandler(value = UserAllReadyExistsException.class)
-   public String callUserAllReadyExistsException() {
-       return "user all ready exists";
+   @ExceptionHandler(value = UserAlReadyExistsException.class)
+   public String callUserAlReadyExistsException() {
+       return "user already exists";
    }
 
    @ExceptionHandler(value = ChatNotFoundException.class)
    public String callChatNotFoundException() {
        return "chat not found exception";
+   }
+
+   @ExceptionHandler(value = MessageNotFoundException.class)
+   public String callMessageNotFoundException() {
+       return "message not found";
    }
 
 }

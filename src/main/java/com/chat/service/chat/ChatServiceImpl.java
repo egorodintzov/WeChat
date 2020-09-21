@@ -1,8 +1,6 @@
 package com.chat.service.chat;
 
 import com.chat.dao.ChatDao;
-import com.chat.dto.ChatDto;
-import com.chat.dto.UserDto;
 import com.chat.exceptions.ChatNotFoundException;
 import com.chat.model.Chat;
 import com.chat.model.User;
@@ -35,7 +33,7 @@ public class ChatServiceImpl implements ChatService {
 
     public Chat findById(long id) {
         return dao.findById(id).orElseThrow(() -> {
-            throw new ChatNotFoundException("chat not found");
+            throw new ChatNotFoundException("Chat not found");
         });
     }
 
@@ -65,38 +63,24 @@ public class ChatServiceImpl implements ChatService {
 
     /**
      * create chat
-     * @param chatDto-object which contains list of users that will be added to chat
+     *
+     * @param login
      */
 
     @Override
-    public void createChat(ChatDto chatDto) {
+    public void createChat(String login) {
         Chat chat = new Chat();
         chat.setListUsers(new LinkedHashSet<>());
-        Set<User> listUsers = new LinkedHashSet<>();
 
-        // going through chat list with users
-        for (UserDto dto : chatDto.getList()) {
+        Set<User> setUsers = chat.getListUsers();
+        setUsers.add(service.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()));
+        setUsers.add(service.findByLogin(login));
 
-            // get user by login
-            User user = service.findByLogin(dto.getLogin());
-            // and add to list
-            listUsers.add(user);
+        for(User user : setUsers) {
 
-            // add this user to list with chat users
-            chat.getListUsers().add(user);
-
-            if (user.getChats() == null)
-                user.setChats(new LinkedHashSet<>());
-        }
-
-        // going through list with users
-        for (User user : listUsers) {
-
-            // add this chat to list with user chats
             user.getChats().add(chat);
-
-            // update this user
             service.updateChats(user);
+
         }
 
         dao.save(chat);

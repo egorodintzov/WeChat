@@ -2,7 +2,6 @@ package com.chat.service.user;
 
 import com.chat.dto.AuthDto;
 import com.chat.dto.PhotoDto;
-import com.chat.dto.UpdateUserDto;
 import com.chat.dto.UserDto;
 import com.chat.model.User;
 
@@ -25,7 +24,7 @@ public interface UserService {
 
     List<UserDto> findAllByLoginStartsWith(String login);
 
-    void updateLoginAndPassword(UpdateUserDto user);
+    void updateLoginAndPassword(String login,String password);
 
     void updateChats(User user);
 
@@ -33,5 +32,5 @@ public interface UserService {
 
     User getUserByIndex(Set<User> users, int index);
 
-    UserDto getCurrentUser();
+    UserDto getLoginCurrentUser();
 }

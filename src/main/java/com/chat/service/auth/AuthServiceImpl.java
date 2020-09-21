@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.logging.Logger;
+
 /**
  * @author Egor Odintsov
  */
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthServiceImpl implements AuthService {
 
+    private static Logger log = Logger.getLogger(AuthServiceImpl.class.getName());
 
     @Autowired
     private UserService userService;
@@ -35,6 +38,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public boolean isCreated(String login) {
+        log.warning("user can be already exists");
 
         // if user equals not null - return true , else return false
         if (dao.existsByLogin(login)) {
@@ -53,6 +57,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public boolean isCorrectPassword(AuthDto authDto) {
+        log.warning("password can be not correct");
 
         User user = userService.findByLogin(authDto.getLogin());
 

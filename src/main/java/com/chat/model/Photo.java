@@ -13,7 +13,7 @@ public class Photo {
     private String contentType;
     private byte[] content;
 
-    @OneToOne(targetEntity = User.class)
+    @OneToOne(targetEntity = User.class,fetch = FetchType.LAZY)
     private User user;
 
     public Photo() {}

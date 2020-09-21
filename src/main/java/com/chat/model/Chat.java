@@ -5,17 +5,20 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name="chats")
+@Table(name = "chats")
 public class Chat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToMany(targetEntity = User.class,fetch=FetchType.LAZY,mappedBy = "users")
+    @ManyToMany(targetEntity = User.class, fetch = FetchType.LAZY, mappedBy = "users")
     private Set<User> listUsers;
 
-    @ManyToMany(targetEntity = Message.class)
+    @ManyToMany(targetEntity = Message.class, fetch = FetchType.LAZY)
+    @JoinTable(name = "chat_messages",
+               joinColumns = {@JoinColumn(name = "chat_id")},
+               inverseJoinColumns = {@JoinColumn(name = "message_id")})
     private List<Message> listMessages;
 
     public long getId() {

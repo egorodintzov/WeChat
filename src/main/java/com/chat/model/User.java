@@ -22,9 +22,7 @@ public class User {
 
     @ManyToMany(targetEntity = Chat.class,fetch = FetchType.LAZY)
     @JoinTable(name="user_chats",
-               // column which contains id users all chats which stored at this list
                joinColumns = {@JoinColumn(name="user_id")},
-               // column which contains id chats all users which stored at first column
                inverseJoinColumns = {@JoinColumn(name = "chat_id")})
     private Set<Chat> chats;
 
@@ -33,9 +31,10 @@ public class User {
 
     public User() {}
 
-    public User(String login,String password) {
+    public User(String login,String password,Role role) {
         this.login=login;
         this.password=password;
+        this.role=role;
     }
 
     public String getLogin() {
@@ -76,14 +75,6 @@ public class User {
 
     public void setChats(Set<Chat> chats) {
         this.chats = chats;
-    }
-
-    public List<Message> getListMessages() {
-        return listMessages;
-    }
-
-    public void setListMessages(List<Message> listMessages) {
-        this.listMessages = listMessages;
     }
 
     public Photo getPhoto() {

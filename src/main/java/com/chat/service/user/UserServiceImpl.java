@@ -3,7 +3,6 @@ package com.chat.service.user;
 import com.chat.dao.UserDao;
 import com.chat.dto.AuthDto;
 import com.chat.dto.PhotoDto;
-import com.chat.dto.UpdateUserDto;
 import com.chat.dto.UserDto;
 import com.chat.exceptions.NoPhotoException;
 import com.chat.exceptions.UserNotFoundException;
@@ -36,9 +35,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void create(AuthDto authDto) {
-        User user = new User(authDto.getLogin(), encoder.encode(authDto.getPassword()));
-        user.setRole(Role.USER);
-        dao.save(user);
+        dao.save(new User(authDto.getLogin(), encoder.encode(authDto.getPassword()),Role.USER));
     }
 
     /**
@@ -63,7 +60,7 @@ public class UserServiceImpl implements UserService {
     public User findById(long id) {
         return dao.findById(id).orElseThrow(
                 () -> {
-                    throw new UserNotFoundException("user not found");
+                    throw new UserNotFoundException("User not found");
                 });
     }
 
@@ -99,7 +96,7 @@ public class UserServiceImpl implements UserService {
     public PhotoDto getPhoto() {
         Photo photo = dao.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getPhoto();
         if (photo == null) {
-            throw new NoPhotoException("no photo");
+            throw new NoPhotoException("No photo");
         }
 
         return new PhotoDto(photo.getContent());
@@ -117,7 +114,7 @@ public class UserServiceImpl implements UserService {
         List<UserDto> list = new LinkedList<>();
         List<User> users = dao.findAllByLoginStartingWith(login);
         if (users == null) {
-            throw new UserNotFoundException("user not found");
+            throw new UserNotFoundException("User not found");
         }
 
         for (User user : dao.findAllByLoginStartingWith(login)) {
@@ -128,15 +125,15 @@ public class UserServiceImpl implements UserService {
 
     /**
      * update login and password
-     *
-     * @param user object
+     * @param login
+     * @param password
      */
 
     @Override
-    public void updateLoginAndPassword(UpdateUserDto user) {
-        User dbUser = findById(user.getId());
-        dbUser.setLogin(user.getLogin());
-        dbUser.setPassword(user.getPassword());
+    public void updateLoginAndPassword(String login,String password) {
+        User dbUser = findByLogin(login);
+        dbUser.setLogin(login);
+        dbUser.setPassword(password);
         dao.save(dbUser);
     }
 
@@ -194,7 +191,7 @@ public class UserServiceImpl implements UserService {
      */
 
     @Override
-    public UserDto getCurrentUser() {
+    public UserDto getLoginCurrentUser() {
         return new UserDto(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 
