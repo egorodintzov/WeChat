@@ -18,7 +18,7 @@ public class User {
     @Column(nullable=false)
     private String password;
 
-    @OneToOne(targetEntity = Photo.class)
+    @OneToOne(targetEntity = Photo.class,cascade=CascadeType.REMOVE,orphanRemoval = true)
     private Photo photo;
 
     @ManyToMany(targetEntity = Chat.class,fetch = FetchType.LAZY)

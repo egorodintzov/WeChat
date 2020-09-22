@@ -72,11 +72,12 @@ public class ChatServiceImpl implements ChatService {
         Chat chat = new Chat();
         chat.setListUsers(new LinkedHashSet<>());
 
-        Set<User> setUsers = chat.getListUsers();
-        setUsers.add(service.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()));
-        setUsers.add(service.findByLogin(login));
+        Set<User> users = chat.getListUsers();
+        users.add(service.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()));
+        users.add(service.findByLogin(login));
 
-        for(User user : setUsers) {
+
+        for(User user : users) {
 
             user.getChats().add(chat);
             service.updateChats(user);
