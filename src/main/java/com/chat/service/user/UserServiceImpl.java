@@ -131,7 +131,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateLoginAndPassword(String login,String password) {
-        User dbUser = findByLogin(login);
+        User dbUser = findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         dbUser.setLogin(login);
         dbUser.setPassword(password);
         dao.save(dbUser);

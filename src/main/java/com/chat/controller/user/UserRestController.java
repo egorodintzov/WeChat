@@ -43,10 +43,10 @@ public class UserRestController {
       return service.getLoginCurrentUser();
    }
 
-   @PutMapping("/{login}")
-   public AuthDto update(@PathVariable("login") String login, @RequestParam String password) {
-         service.updateLoginAndPassword(login,password);
-         User user = service.findByLogin(login);
+   @PutMapping("/update")
+   public AuthDto update(@RequestBody AuthDto authDto) {
+         service.updateLoginAndPassword(authDto.getLogin(),authDto.getPassword());
+         User user = service.findByLogin(authDto.getLogin());
          return new AuthDto(user.getLogin(),user.getPassword());
    }
 
