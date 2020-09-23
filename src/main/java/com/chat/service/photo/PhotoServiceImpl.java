@@ -1,6 +1,5 @@
 package com.chat.service.photo;
 
-import com.chat.dao.PhotoDao;
 import com.chat.model.Photo;
 import com.chat.model.User;
 import com.chat.service.user.UserService;
@@ -17,9 +16,6 @@ import java.io.IOException;
 
 @Service
 public class PhotoServiceImpl implements PhotoService {
-
-    @Autowired
-    private PhotoDao dao;
 
     @Autowired
     private UserService userService;
@@ -44,8 +40,6 @@ public class PhotoServiceImpl implements PhotoService {
         user.setPhoto(photo);
         // and update this user
         userService.updatePhoto(user);
-
-        dao.save(photo);
     }
 
 

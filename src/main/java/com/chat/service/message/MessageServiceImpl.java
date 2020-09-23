@@ -27,9 +27,9 @@ public class MessageServiceImpl implements MessageService {
     }
 
     public Message findById(long id) {
-        return dao.findById(id).orElseThrow(() -> {
-            throw new MessageNotFoundException("Message not found");
-        });
+        return dao.findById(id).orElseThrow(() ->
+            new MessageNotFoundException("Message not found")
+        );
     }
 
     /**

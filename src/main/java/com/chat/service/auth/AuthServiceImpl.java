@@ -38,9 +38,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public boolean isCreated(String login) {
-        log.warning("user can be already exists");
 
-        // if user equals not null - return true , else return false
         if (dao.existsByLogin(login)) {
             return true;
         }

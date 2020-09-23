@@ -17,7 +17,7 @@ public class Message {
     private String message;
     private String senderLogin;
 
-    @ManyToMany(targetEntity = Chat.class,mappedBy = "chats",fetch = FetchType.LAZY)
+    @ManyToMany(targetEntity = Chat.class,fetch = FetchType.LAZY)
     private Set<Chat> setChats;
 
     public Message() {}

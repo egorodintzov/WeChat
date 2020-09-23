@@ -12,7 +12,7 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToMany(targetEntity = User.class, fetch = FetchType.LAZY, mappedBy = "users")
+    @ManyToMany(targetEntity = User.class, fetch = FetchType.LAZY)
     private Set<User> listUsers;
 
     @ManyToMany(targetEntity = Message.class, fetch = FetchType.LAZY)

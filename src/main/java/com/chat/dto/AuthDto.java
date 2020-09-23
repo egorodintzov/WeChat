@@ -10,7 +10,7 @@ public class AuthDto {
     @Size(min=2)
     private String login;
     @NotNull
-    @Size(min=6)
+    @Size(min=4)
     private String password;
 
     public AuthDto() {}

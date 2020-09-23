@@ -32,9 +32,9 @@ public class ChatServiceImpl implements ChatService {
      */
 
     public Chat findById(long id) {
-        return dao.findById(id).orElseThrow(() -> {
-            throw new ChatNotFoundException("Chat not found");
-        });
+        return dao.findById(id).orElseThrow(() ->
+            new ChatNotFoundException("Chat not found")
+        );
     }
 
     /**

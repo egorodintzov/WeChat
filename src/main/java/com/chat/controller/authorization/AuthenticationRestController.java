@@ -45,13 +45,13 @@ public class AuthenticationRestController {
     public TokenDto registration(@Valid @RequestBody AuthDto authDto) {
 
         if (authService.isCreated(authDto.getLogin())) {
-            log.severe("user already exists");
             throw new UserAlReadyExistsException("User already exists");
         }
 
         userService.create(authDto);
-        return new TokenDto(provider.generateToken(authDto.getLogin()));
-
+        TokenDto dto = new TokenDto(provider.generateToken(authDto.getLogin()));
+        log.info(dto.getToken());
+        return dto;
     }
 
 

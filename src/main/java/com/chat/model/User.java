@@ -2,7 +2,6 @@ package com.chat.model;
 
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 
@@ -18,7 +17,7 @@ public class User {
     @Column(nullable=false)
     private String password;
 
-    @OneToOne(targetEntity = Photo.class,cascade=CascadeType.REMOVE,orphanRemoval = true)
+    @OneToOne(targetEntity = Photo.class,cascade={CascadeType.REMOVE,CascadeType.PERSIST},orphanRemoval = true)
     private Photo photo;
 
     @ManyToMany(targetEntity = Chat.class,fetch = FetchType.LAZY)
