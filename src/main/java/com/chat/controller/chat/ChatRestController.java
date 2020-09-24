@@ -3,6 +3,7 @@ package com.chat.controller.chat;
 import com.chat.service.chat.ChatService;
 import com.chat.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,7 @@ public class ChatRestController {
     }
 
     @PostMapping("/{login}")
+    @ResponseStatus(value = HttpStatus.CREATED)
     public void createChat(@PathVariable("login") String login) {
         service.createChat(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()),userService.findByLogin(login));
     }
