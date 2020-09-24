@@ -24,7 +24,7 @@ public interface UserService {
 
     List<UserDto> findAllByLoginStartsWith(String login);
 
-    void updateLoginAndPassword(String login,String password);
+    void updateLoginAndPassword(AuthDto authDto);
 
     void updateChats(User user);
 

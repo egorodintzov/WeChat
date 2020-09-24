@@ -18,8 +18,6 @@ import java.util.logging.Logger;
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    private static Logger log = Logger.getLogger(AuthServiceImpl.class.getName());
-
     @Autowired
     private UserService userService;
 
@@ -38,12 +36,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public boolean isCreated(String login) {
-
-        if (dao.existsByLogin(login)) {
-            return true;
-        }
-
-        return false;
+        return dao.existsByLogin(login);
     }
 
     /**
@@ -55,17 +48,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public boolean isCorrectPassword(AuthDto authDto) {
-        log.warning("password can be not correct");
-
         User user = userService.findByLogin(authDto.getLogin());
-
         //if password is correct - return true
-        if (user!=null && encoder.matches(user.getPassword(),authDto.getPassword())) {
-            return true;
-        }
-
-        //else - return false
-        return false;
+        return user!=null && encoder.matches(user.getPassword(),authDto.getPassword());
     }
 
 }

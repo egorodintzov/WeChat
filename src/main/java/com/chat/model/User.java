@@ -20,7 +20,7 @@ public class User {
     @OneToOne(targetEntity = Photo.class,cascade={CascadeType.REMOVE,CascadeType.PERSIST},orphanRemoval = true)
     private Photo photo;
 
-    @ManyToMany(targetEntity = Chat.class,fetch = FetchType.LAZY)
+    @ManyToMany(targetEntity = Chat.class,fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinTable(name="users_chats",
                // column contains id users all chats which stored at this list
                joinColumns = {@JoinColumn(name="user_id")},

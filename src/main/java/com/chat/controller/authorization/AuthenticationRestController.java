@@ -18,8 +18,6 @@ import java.util.logging.Logger;
 @RequestMapping("/api")
 public class AuthenticationRestController {
 
-    private static Logger log = Logger.getLogger(AuthenticationRestController.class.getName());
-
     @Autowired
     private JwtProvider provider;
 
@@ -49,21 +47,8 @@ public class AuthenticationRestController {
         }
 
         userService.create(authDto);
-        TokenDto dto = new TokenDto(provider.generateToken(authDto.getLogin()));
-        log.info(dto.getToken());
-        return dto;
+        return new TokenDto(provider.generateToken(authDto.getLogin()));
     }
 
-
-    @PostMapping("/created")
-    public boolean isCreated(@Valid @RequestParam String login) {
-        return authService.isCreated(login);
-    }
-
-
-    @PostMapping("/correct")
-    public boolean isCorrectPassword(@Valid @RequestBody AuthDto authDto) {
-        return authService.isCorrectPassword(authDto);
-    }
 
 }

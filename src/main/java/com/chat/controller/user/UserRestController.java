@@ -19,7 +19,6 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserRestController {
 
-   @Qualifier("userServiceImpl")
    @Autowired
    private UserService service;
 
@@ -43,9 +42,9 @@ public class UserRestController {
       return service.getLoginCurrentUser();
    }
 
-   @PutMapping("/update")
+   @PutMapping
    public AuthDto update(@RequestBody AuthDto authDto) {
-         service.updateLoginAndPassword(authDto.getLogin(),authDto.getPassword());
+         service.updateLoginAndPassword(authDto);
          User user = service.findByLogin(authDto.getLogin());
          return new AuthDto(user.getLogin(),user.getPassword());
    }

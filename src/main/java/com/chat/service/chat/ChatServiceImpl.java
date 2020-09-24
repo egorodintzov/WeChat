@@ -2,11 +2,11 @@ package com.chat.service.chat;
 
 import com.chat.dao.ChatDao;
 import com.chat.exceptions.ChatNotFoundException;
+import com.chat.exceptions.UserNotFoundException;
 import com.chat.model.Chat;
 import com.chat.model.User;
 import com.chat.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,6 @@ import java.util.Set;
 @Service
 public class ChatServiceImpl implements ChatService {
 
-    @Qualifier("userServiceImpl")
     @Autowired
     private UserService service;
 
@@ -63,27 +62,30 @@ public class ChatServiceImpl implements ChatService {
 
     /**
      * create chat
-     *
-     * @param login
+     * @param user1
+     * @param user2
      */
 
     @Override
-    public void createChat(String login) {
-        Chat chat = new Chat();
-        chat.setListUsers(new LinkedHashSet<>());
-
-        Set<User> users = chat.getListUsers();
-        users.add(service.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()));
-        users.add(service.findByLogin(login));
-
-
-        for(User user : users) {
-
-            user.getChats().add(chat);
-            service.updateChats(user);
-
+    public void createChat(User user1,User user2) {
+        if(user1==null || user2==null) {
+            throw new UserNotFoundException("User not found");
         }
+        else {
+            Chat chat = new Chat();
+            chat.setListUsers(new LinkedHashSet<>());
 
-        dao.save(chat);
+            Set<User> users = chat.getListUsers();
+            users.add(user1);
+            users.add(user2);
+
+
+            for (User user : users) {
+
+                user.getChats().add(chat);
+                service.updateChats(user);
+
+            }
+        }
     }
 }

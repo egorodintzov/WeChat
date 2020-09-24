@@ -124,17 +124,15 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * update login and password
-     *
-     * @param login
-     * @param password
+     * update user login and password
+     * @param authDto
      */
 
     @Override
-    public void updateLoginAndPassword(String login, String password) {
+    public void updateLoginAndPassword(AuthDto authDto) {
         User dbUser = findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        dbUser.setLogin(login);
-        dbUser.setPassword(password);
+        dbUser.setLogin(authDto.getLogin());
+        dbUser.setPassword(authDto.getPassword());
         dao.save(dbUser);
     }
 
