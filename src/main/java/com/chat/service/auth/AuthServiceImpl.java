@@ -4,12 +4,9 @@ package com.chat.service.auth;
 import com.chat.dao.UserDao;
 import com.chat.dto.AuthDto;
 import com.chat.model.User;
-import com.chat.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.logging.Logger;
 
 /**
  * @author Egor Odintsov
@@ -17,9 +14,6 @@ import java.util.logging.Logger;
 
 @Service
 public class AuthServiceImpl implements AuthService {
-
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -42,15 +36,15 @@ public class AuthServiceImpl implements AuthService {
     /**
      * check is password correct
      *
-     * @param authDto
+     * @param regDto object - which contains nickname,login,password
+     * @param user object - current user
      * @return
      */
 
     @Override
-    public boolean isCorrectPassword(AuthDto authDto) {
-        User user = userService.findByLogin(authDto.getLogin());
+    public boolean isCorrectPassword(AuthDto regDto,User user) {
         //if password is correct - return true
-        return user!=null && encoder.matches(user.getPassword(),authDto.getPassword());
+        return user!=null && encoder.matches(user.getPassword(),regDto.getPassword());
     }
 
 }

@@ -16,6 +16,8 @@ public class User {
     private String login;
     @Column(nullable=false)
     private String password;
+    @Column(nullable=false)
+    private String nickname;
 
     @OneToOne(targetEntity = Photo.class,cascade={CascadeType.REMOVE,CascadeType.PERSIST},orphanRemoval = true)
     private Photo photo;
@@ -33,7 +35,8 @@ public class User {
 
     public User() {}
 
-    public User(String login,String password,Role role) {
+    public User(String nickname,String login,String password,Role role) {
+        this.nickname=nickname;
         this.login=login;
         this.password=password;
         this.role=role;
@@ -85,5 +88,13 @@ public class User {
 
     public void setPhoto(Photo photo) {
         this.photo = photo;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

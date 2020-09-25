@@ -1,5 +1,6 @@
 package com.chat.controller.chat;
 
+import com.chat.model.User;
 import com.chat.service.chat.ChatService;
 import com.chat.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,14 @@ public class ChatRestController {
 
     @GetMapping("/all")
     public List<String> getAllChats() {
-        return service.getAllChats();
+        final User CURRENT_USER = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        return service.getAllChats(CURRENT_USER);
     }
 
-    @PostMapping("/{login}")
+    @PostMapping("/{id}")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public void createChat(@PathVariable("login") String login) {
-        service.createChat(userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()),userService.findByLogin(login));
+    public void createChat(@PathVariable("id") long id) {
+        final User CURRENT_USER = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        service.createChat(CURRENT_USER,userService.findById(id));
     }
 }

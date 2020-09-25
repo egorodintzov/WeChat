@@ -1,6 +1,7 @@
 package com.chat.controller.authorization;
 
 import com.chat.dto.AuthDto;
+import com.chat.dto.RegDto;
 import com.chat.dto.TokenDto;
 import com.chat.dto.UserDto;
 import com.chat.exceptions.UserAlReadyExistsException;
@@ -31,7 +32,7 @@ public class AuthenticationRestController {
     @PostMapping("/authenticate")
     public TokenDto authenticate(@Valid @RequestBody AuthDto authDto) {
 
-        if (!authService.isCorrectPassword(authDto)) {
+        if (!authService.isCorrectPassword(authDto,userService.findByLogin(authDto.getLogin()))) {
             throw new WrongLoginOrPasswordException("Wrong login or password");
         }
 
@@ -40,14 +41,14 @@ public class AuthenticationRestController {
 
 
     @PostMapping("/registration")
-    public TokenDto registration(@Valid @RequestBody AuthDto authDto) {
+    public TokenDto registration(@Valid @RequestBody RegDto regDto) {
 
-        if (authService.isCreated(authDto.getLogin())) {
+        if (authService.isCreated(regDto.getLogin())) {
             throw new UserAlReadyExistsException("User already exists");
         }
 
-        userService.create(authDto);
-        return new TokenDto(provider.generateToken(authDto.getLogin()));
+        userService.create(regDto);
+        return new TokenDto(provider.generateToken(regDto.getLogin()));
     }
 
 

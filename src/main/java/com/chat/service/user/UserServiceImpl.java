@@ -1,9 +1,7 @@
 package com.chat.service.user;
 
 import com.chat.dao.UserDao;
-import com.chat.dto.AuthDto;
-import com.chat.dto.PhotoDto;
-import com.chat.dto.UserDto;
+import com.chat.dto.*;
 import com.chat.exceptions.NoPhotoException;
 import com.chat.exceptions.UserNotFoundException;
 import com.chat.model.Photo;
@@ -28,14 +26,13 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder encoder;
 
     /**
-     * create chat
-     *
-     * @param authDto object which contains login and password
+     * create user
+     * @param regDto - object which contains nickname,login,password
      */
 
     @Override
-    public void create(AuthDto authDto) {
-        dao.save(new User(authDto.getLogin(), encoder.encode(authDto.getPassword()), Role.USER));
+    public void create(RegDto regDto) {
+        dao.save(new User(regDto.getNickname(),regDto.getLogin(), encoder.encode(regDto.getPassword()), Role.USER));
     }
 
     /**
@@ -105,35 +102,38 @@ public class UserServiceImpl implements UserService {
     /**
      * find all users which have login which starts with this words
      *
-     * @param login
+     * @param nickname
      * @return list with user dto objects
      */
 
     @Override
-    public List<UserDto> findAllByLoginStartsWith(String login) {
+    public List<UserDto> findAllByNickNameStartsWith(String nickname) {
         List<UserDto> list = new LinkedList<>();
-        List<User> users = dao.findAllByLoginStartingWith(login);
+        List<User> users = dao.findAllByNicknameStartingWith(nickname);
         if (users == null) {
             throw new UserNotFoundException("User not found");
         }
 
-        for (User user : dao.findAllByLoginStartingWith(login)) {
-            list.add(new UserDto(user.getLogin()));
+        for (User user : dao.findAllByNicknameStartingWith(nickname)) {
+            list.add(new UserDto(user.getNickname()));
         }
         return list;
     }
 
     /**
-     * update user login and password
-     * @param authDto
+     * update nickname and password
+     * @param updateUserDto object , which contains new nickname or password
+     * @param loginCurrentUser
+     * @return updateuserdto object
      */
 
     @Override
-    public void updateLoginAndPassword(AuthDto authDto) {
-        User dbUser = findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-        dbUser.setLogin(authDto.getLogin());
-        dbUser.setPassword(authDto.getPassword());
+    public UpdateUserDto updateNicknameAndPassword(UpdateUserDto updateUserDto,String loginCurrentUser) {
+        User dbUser = findByLogin(loginCurrentUser);
+        dbUser.setNickname(updateUserDto.getNickname());
+        dbUser.setPassword(updateUserDto.getPassword());
         dao.save(dbUser);
+        return new UpdateUserDto(dbUser.getNickname(),dbUser.getPassword());
     }
 
     /**
@@ -190,8 +190,9 @@ public class UserServiceImpl implements UserService {
      */
 
     @Override
-    public UserDto getLoginCurrentUser() {
-        return new UserDto(SecurityContextHolder.getContext().getAuthentication().getName());
+    public UserDto getNicknameCurrentUser() {
+        final User CURRENT_USER = findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        return new UserDto(CURRENT_USER.getNickname());
     }
 
 }

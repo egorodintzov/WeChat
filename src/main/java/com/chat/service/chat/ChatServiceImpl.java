@@ -42,7 +42,7 @@ public class ChatServiceImpl implements ChatService {
      */
 
     @Override
-    public List<String> getAllChats() {
+    public List<String> getAllChats(User currentUser) {
 
         // get all chats of current user
         Set<Chat> chats = service.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getChats();
@@ -53,7 +53,7 @@ public class ChatServiceImpl implements ChatService {
             for (Chat chat : chats) {
 
                 // get user with index 1 from list with chat users, get user login and add to list
-                listUsers.add(service.getUserByIndex(chat.getListUsers(), 1).getLogin());
+                listUsers.add(service.getUserByIndex(chat.getListUsers(), 1).getNickname());
 
             }
         }

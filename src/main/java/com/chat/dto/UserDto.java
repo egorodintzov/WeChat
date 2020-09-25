@@ -1,23 +1,25 @@
 package com.chat.dto;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class UserDto {
 
     @NotNull
-    private String login;
+    @Size(min=2)
+    private String nickname;
 
     public UserDto() {}
 
-    public UserDto(String login) {
-        this.login = login;
+    public UserDto(String nickname) {
+        this.nickname=nickname;
     }
 
-    public String getLogin() {
-        return login;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

@@ -2,15 +2,18 @@ package com.chat.controller.user;
 
 import com.chat.dto.AuthDto;
 import com.chat.dto.PhotoDto;
+import com.chat.dto.UpdateUserDto;
 import com.chat.dto.UserDto;
 import com.chat.model.User;
+import com.chat.security.SecurityConfig;
 import com.chat.service.photo.PhotoService;
 import com.chat.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -19,44 +22,44 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserRestController {
 
-   @Autowired
-   private UserService service;
+    @Autowired
+    private UserService service;
 
-   @Autowired
-   private PhotoService photoService;
+    @Autowired
+    private PhotoService photoService;
 
-   @GetMapping("/all")
-   @Deprecated
-   public List<User> getAll() {
-      return service.getAllUsers();
-   }
+    @GetMapping("/all")
+    @Deprecated
+    public List<User> getAll() {
+        return service.getAllUsers();
+    }
 
 
-   @GetMapping("/{login}")
-   public List<UserDto> findAllByLogin(@PathVariable("login") String login) {
-       return service.findAllByLoginStartsWith(login);
-   }
+    @GetMapping("/search")
+    public List<UserDto> findAllByNickname(@RequestParam String nickname) {
+        return service.findAllByNickNameStartsWith(nickname);
+    }
 
-   @GetMapping("/auth")
-   public UserDto getLoginCurrentUser() {
-      return service.getLoginCurrentUser();
-   }
+    @GetMapping("/auth")
+    public UserDto getLoginCurrentUser() {
+        return service.getNicknameCurrentUser();
+    }
 
-   @PutMapping
-   public AuthDto update(@RequestBody AuthDto authDto) {
-         service.updateLoginAndPassword(authDto);
-         User user = service.findByLogin(authDto.getLogin());
-         return new AuthDto(user.getLogin(),user.getPassword());
-   }
+    @PutMapping
+    public UpdateUserDto update(@Valid @RequestBody UpdateUserDto updateUserDto) {
+        final String LOGIN_CURRENT_USER = SecurityContextHolder.getContext().getAuthentication().getName();
+        return service.updateNicknameAndPassword(updateUserDto, LOGIN_CURRENT_USER);
+    }
 
-   @PostMapping("/photo")
-   public void createPhoto(@RequestBody MultipartFile file) throws IOException {
-      photoService.createPhoto(file);
-   }
+    @PostMapping("/photo")
+    public void createPhoto(@RequestBody MultipartFile file) throws IOException {
+        final User CURRENT_USER = service.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        photoService.createPhoto(file, CURRENT_USER);
+    }
 
-   @GetMapping("/photo")
-   public PhotoDto getPhoto() {
-      return service.getPhoto();
-   }
+    @GetMapping("/photo")
+    public PhotoDto getPhoto() {
+        return service.getPhoto();
+    }
 
 }

@@ -1,8 +1,6 @@
 package com.chat.service.user;
 
-import com.chat.dto.AuthDto;
-import com.chat.dto.PhotoDto;
-import com.chat.dto.UserDto;
+import com.chat.dto.*;
 import com.chat.model.User;
 
 import java.util.List;
@@ -10,7 +8,7 @@ import java.util.Set;
 
 public interface UserService {
 
-    void create(AuthDto authDto);
+    void create(RegDto regDto);
 
     void deleteById(long id);
 
@@ -22,9 +20,9 @@ public interface UserService {
 
     PhotoDto getPhoto();
 
-    List<UserDto> findAllByLoginStartsWith(String login);
+    List<UserDto> findAllByNickNameStartsWith(String login);
 
-    void updateLoginAndPassword(AuthDto authDto);
+    UpdateUserDto updateNicknameAndPassword(UpdateUserDto updateUserDto,String loginCurrentUser);
 
     void updateChats(User user);
 
@@ -32,5 +30,5 @@ public interface UserService {
 
     User getUserByIndex(Set<User> users, int index);
 
-    UserDto getLoginCurrentUser();
+    UserDto getNicknameCurrentUser();
 }

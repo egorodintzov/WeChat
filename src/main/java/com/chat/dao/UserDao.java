@@ -9,7 +9,7 @@ public interface UserDao extends JpaRepository<User,Long> {
 
     User findByLogin(String login);
 
-    List<User> findAllByLoginStartingWith(String login);
+    List<User> findAllByNicknameStartingWith(String nickname);
 
     boolean existsByLogin(String login);
 }

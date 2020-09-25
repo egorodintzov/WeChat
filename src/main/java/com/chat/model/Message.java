@@ -15,7 +15,9 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String message;
-    private String senderLogin;
+
+    @OneToOne(targetEntity = User.class)
+    public User user;
 
     @ManyToMany(targetEntity = Chat.class,fetch = FetchType.LAZY)
     private Set<Chat> setChats;
@@ -42,12 +44,12 @@ public class Message {
         this.id = id;
     }
 
-    public String getSenderLogin() {
-        return senderLogin;
+    public User getUser() {
+        return user;
     }
 
-    public void setSenderLogin(String senderLogin) {
-        this.senderLogin = senderLogin;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Set<Chat> getSetChats() {

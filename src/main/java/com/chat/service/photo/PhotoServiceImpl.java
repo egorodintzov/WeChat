@@ -27,9 +27,7 @@ public class PhotoServiceImpl implements PhotoService {
      */
 
     @Override
-    public void createPhoto(MultipartFile file) throws IOException {
-        // get current user by login
-        User user = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+    public void createPhoto(MultipartFile file,User user) throws IOException {
 
         // create photo
         Photo photo = new Photo(file.getBytes(),file.getName(),file.getContentType());
