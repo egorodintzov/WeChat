@@ -29,7 +29,7 @@ public class AuthServiceImpl implements AuthService {
      */
 
     @Override
-    public boolean isCreated(String login) {
+    public boolean isUserExists(String login) {
         return dao.existsByLogin(login);
     }
 

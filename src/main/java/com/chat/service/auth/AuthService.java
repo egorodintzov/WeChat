@@ -6,7 +6,7 @@ import com.chat.model.User;
 
 public interface AuthService {
 
-    boolean isCreated(String login);
+    boolean isUserExists(String login);
 
     boolean isCorrectPassword(AuthDto regDto, User user);
 

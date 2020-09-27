@@ -43,7 +43,7 @@ public class AuthenticationRestController {
     @PostMapping("/registration")
     public TokenDto registration(@Valid @RequestBody RegDto regDto) {
 
-        if (authService.isCreated(regDto.getLogin())) {
+        if (authService.isUserExists(regDto.getLogin())) {
             throw new UserAlReadyExistsException("User already exists");
         }
 

@@ -5,7 +5,6 @@ import com.chat.service.chat.ChatService;
 import com.chat.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,14 +21,14 @@ public class ChatRestController {
 
     @GetMapping("/all")
     public List<String> getAllChats() {
-        final User CURRENT_USER = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        final User CURRENT_USER = userService.getCurrentUser();
         return service.getAllChats(CURRENT_USER);
     }
 
     @PostMapping("/{id}")
     @ResponseStatus(value = HttpStatus.CREATED)
     public void createChat(@PathVariable("id") long id) {
-        final User CURRENT_USER = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        final User CURRENT_USER = userService.getCurrentUser();
         service.createChat(CURRENT_USER,userService.findById(id));
     }
 }

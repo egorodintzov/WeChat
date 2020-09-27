@@ -31,4 +31,6 @@ public interface UserService {
     User getUserByIndex(Set<User> users, int index);
 
     UserDto getNicknameCurrentUser();
+
+    User getCurrentUser();
 }

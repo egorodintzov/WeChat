@@ -195,4 +195,9 @@ public class UserServiceImpl implements UserService {
         return new UserDto(CURRENT_USER.getNickname());
     }
 
+    @Override
+    public User getCurrentUser() {
+        return findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+    }
+
 }

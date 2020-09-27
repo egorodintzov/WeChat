@@ -16,7 +16,7 @@ public class Message {
     private long id;
     private String message;
 
-    @OneToOne(targetEntity = User.class)
+    @OneToOne(targetEntity = User.class,fetch = FetchType.LAZY)
     public User user;
 
     @ManyToMany(targetEntity = Chat.class,fetch = FetchType.LAZY)

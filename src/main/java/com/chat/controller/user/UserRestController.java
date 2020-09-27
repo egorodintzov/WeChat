@@ -41,7 +41,7 @@ public class UserRestController {
     }
 
     @GetMapping("/auth")
-    public UserDto getLoginCurrentUser() {
+    public UserDto getNicknameCurrentUser() {
         return service.getNicknameCurrentUser();
     }
 
@@ -53,7 +53,7 @@ public class UserRestController {
 
     @PostMapping("/photo")
     public void createPhoto(@RequestBody MultipartFile file) throws IOException {
-        final User CURRENT_USER = service.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        final User CURRENT_USER = service.getCurrentUser();
         photoService.createPhoto(file, CURRENT_USER);
     }
 
