@@ -45,7 +45,7 @@ public class ChatServiceImpl implements ChatService {
     public List<String> getAllChats(User currentUser) {
 
         // get all chats of current user
-        Set<Chat> chats = service.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName()).getChats();
+        Set<Chat> chats = currentUser.getChats();
         List<String> listUsers = new LinkedList<>();
 
         if(chats!=null) {
