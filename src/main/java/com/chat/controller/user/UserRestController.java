@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.swing.plaf.ColorUIResource;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
@@ -48,7 +49,7 @@ public class UserRestController {
     @PutMapping
     public UpdateUserDto update(@Valid @RequestBody UpdateUserDto updateUserDto) {
         final String LOGIN_CURRENT_USER = SecurityContextHolder.getContext().getAuthentication().getName();
-        return service.updateNicknameAndPassword(updateUserDto, LOGIN_CURRENT_USER);
+        return service.updateNicknameAndPassword(updateUserDto,LOGIN_CURRENT_USER);
     }
 
     @PostMapping("/photo")
