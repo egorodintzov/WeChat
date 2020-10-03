@@ -1,11 +1,5 @@
 body {
-    display: none;
     background:#e3e1e1;
-}
-
-.profile {
-    display: flex;
-    margin: 100px auto 0;
 }
 
 .content {
@@ -29,13 +23,8 @@ body {
 
 
 .title {
-    display: flex;
     margin-top: 10px;
 	margin-left:10px;	
-}
-
-.title button {
-    display: none;
 }
 
 .title strong {
