@@ -15,8 +15,10 @@ import java.util.logging.Logger;
 @Component
 public class JwtProvider {
 
-     @Value("$(jwt.secret")
+     @Value("${jwt.secret}")
      private String secret;
+
+     Logger log = Logger.getLogger(JwtProvider.class.getName());
 
      @Autowired
      private UserService userService;

@@ -5,18 +5,17 @@ import com.chat.dto.PhotoDto;
 import com.chat.dto.UpdateUserDto;
 import com.chat.dto.UserDto;
 import com.chat.model.User;
-import com.chat.security.SecurityConfig;
 import com.chat.service.photo.PhotoService;
 import com.chat.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.swing.plaf.ColorUIResource;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 @RestController
