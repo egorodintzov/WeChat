@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ChatController {
 
-    @Qualifier("messageServiceImpl")
     @Autowired
     private MessageService service;
 
