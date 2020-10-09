@@ -32,7 +32,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void create(RegDto regDto) {
-        dao.save(new User(regDto.getNickname(),regDto.getLogin(), encoder.encode(regDto.getPassword()), Role.USER));
+        if(regDto.getPassword()!=null) {
+            dao.save(new User(regDto.getNickname(),regDto.getLogin(), encoder.encode(regDto.getPassword()), Role.USER));
+        }
+        else {
+            dao.save(new User(regDto.getNickname(),regDto.getLogin(),regDto.getPassword(),Role.USER));
+        }
     }
 
     /**

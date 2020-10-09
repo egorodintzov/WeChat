@@ -1,5 +1,7 @@
 package com.chat.dto;
 
+import com.sun.istack.Nullable;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
