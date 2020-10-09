@@ -53,7 +53,7 @@ public class AuthenticationRestController {
     }
 
 
-    @PostMapping("/auth/facebook")
+    @GetMapping("/auth/facebook")
     public TokenDto authenticateWithFacebook(Principal principal) {
         Map<String,Object> details = (Map<String,Object>) ((OAuth2Authentication) principal).getUserAuthentication().getDetails();
         String login = (String) details.get("email");
