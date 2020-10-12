@@ -53,15 +53,15 @@ public class AuthenticationRestController {
     }
 
 
-    @GetMapping("/auth/facebook")
-    public TokenDto authenticateWithFacebook(Principal principal) {
+    @PostMapping("/auth/facebook")
+    public Principal authenticateWithFacebook(Principal principal) {
         Map<String,Object> details = (Map<String,Object>) ((OAuth2Authentication) principal).getUserAuthentication().getDetails();
         String login = (String) details.get("email");
         String nickname = (String) details.get("name");
         if(!authService.isUserExists(login)) {
             userService.create(new RegDto(nickname,login,null));
         }
-        return new TokenDto(provider.generateToken(login));
+        return principal;
     }
 
 }

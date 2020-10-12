@@ -1,40 +1,38 @@
-let stompClient=null;
-let isConnected=false;
+var stompClient = null;
+var connectFlag=false;
 
-
-window.onload = function() {
+$(document).ready(function () {
     connect();
-};
-
+});
 
 function connect() {
-    let socket = new SockJS("/message");
-    stompClient=Stomp.over(socket);
-    stompClient.connect({},function (frame) {
-        isConnected=true;
-        // подсоединяемся к топику , где хранятся сообщения
-        stompClient.subscribe('/chat/topic',function (response) {
-            // парсим объект и получаем его поле message
-            showMessage(JSON.parse(response.body).message);
+    var socket = new SockJS('/message');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function(frame) {
+        connectFlag=true;
+        stompClient.subscribe('/chat/topic', function(response) {
+            show(JSON.parse(response.body).value);
         });
     });
 }
 
-function sendMessage() {
-    if(isConnected) {
-        // получаем значения с поля
-        let message = document.getElementById('input').value;
-        // отправляем сообщение на урл , который принимает сообщения
-        stompClient.send('/app/message',{},JSON.stringify({
-            message:message
+function disconnect() {
+    stompClient.disconnect();
+    setConnected(false);
+    console.log("Disconnected");
+}
+
+function sendMsg() {
+    if(connectFlag) {
+        var message = document.getElementById('messageField').value;
+        stompClient.send('/app/message', {}, JSON.stringify({
+            value: message,
         }));
     }
 }
 
-// выводим сообщения
-// p.s я не юзаю реакт , потому что мне лень его подключать
-function showMessage(message) {
-    let element = document.createElement('div');
+function show(message) {
+    var element = document.createElement('div');
     element.innerHTML=message;
-    document.body.appendChild(element);
+    document.getElementById('msg-box').appendChild(element);
 }
