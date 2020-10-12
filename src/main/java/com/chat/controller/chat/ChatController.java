@@ -26,9 +26,12 @@ import java.util.Set;
 @Controller
 public class ChatController {
 
+<<<<<<< HEAD
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
+=======
+>>>>>>> 32ae0b870f0d1da9c821daf72bb2825adbadab4a
     @Autowired
     private MessageService service;
 
