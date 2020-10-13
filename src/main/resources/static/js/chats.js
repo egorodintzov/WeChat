@@ -58,8 +58,8 @@ async function getChats() {
             }
         }
     } catch (err) {
-        if (err.response.status === 401)
-            document.location.href = "/login";
+        //if (err.response.status === 401)
+          //  document.location.href = "/login";
     }
 }
 
