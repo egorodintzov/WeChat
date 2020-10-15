@@ -51,12 +51,12 @@ public class ChatController {
     }
 
     @GetMapping("/")
-    public String chat() {
+    public String chats() {
         return "chats";
     }
 
     @GetMapping("/chat")
-    public String chats() {
+    public String chat() {
         return "chat";
     }
 
