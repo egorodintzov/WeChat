@@ -42,9 +42,9 @@ public class AuthServiceImpl implements AuthService {
      */
 
     @Override
-    public boolean isCorrectPassword(AuthDto regDto,User user) {
+    public boolean isCorrectPassword(AuthDto authDto,User user) {
         //if password is correct - return true
-        return user!=null && encoder.matches(user.getPassword(),regDto.getPassword());
+        return user!=null && encoder.matches(authDto.getPassword(),user.getPassword());
     }
 
 }
